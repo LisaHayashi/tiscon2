@@ -18,7 +18,10 @@
                     <div class="center column">
                         <h1 class="ui center aligned header">キャンペーン作成</h1>
                         <form class="ui form" method="post" action="/auth/campaign">
-                            <div class="field"><label>タイトル</label><input type="text"></div>
+                            <div class="field"><label>タイトル</label><input type="text"
+                            input type="text" name="title" placeholder="タイトル"
+                            th:value="(${campaign.title}!=null)?${campaign.title}"
+                            /></div>
                             <button type="submit" class="ui primary button">作成</button>
                         </form>
                     </div>

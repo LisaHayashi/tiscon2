@@ -14,6 +14,9 @@ import org.seasar.doma.Id;
 @Entity
 @Data
 public class Campaign implements Serializable {
+
+    //コントローラなどで値を入れておくエンティティの定義
+    //何を入れれるかなど
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long campaignId;

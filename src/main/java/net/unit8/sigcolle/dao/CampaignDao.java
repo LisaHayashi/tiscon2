@@ -14,6 +14,11 @@ import org.seasar.doma.Select;
  */
 @Dao(config = DomaConfig.class)
 public interface CampaignDao {
+
+    //ここにはメソッドの定義文をかくだけでいい
+    //データベースへのアクセスはエンカンがやってくれる
+    //でも最低限としてSQLの定義は必要
+
     @Select(ensureResult = true)
     UserCampaign selectById(Long campaignId);
 

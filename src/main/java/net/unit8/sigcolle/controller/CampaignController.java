@@ -32,13 +32,16 @@ public class CampaignController {
     private HttpResponse showCampaign(Long campaignId, SignatureForm signature, String message) {
         CampaignDao campaignDao = domaProvider.getDao(CampaignDao.class);
         UserCampaign campaign = campaignDao.selectById(campaignId);
+//        UserCampaign 値を入れておく場所（エンティティ） = クラス名.関数名(渡す値);
 
         SignatureDao signatureDao = domaProvider.getDao(SignatureDao.class);
         int signatureCount = signatureDao.countByCampaignId(campaignId);
 
-        return templateEngine.render("campaign",
-                "campaign", campaign,
-                "signatureCount", signatureCount,
+        //renderメッソドは色々やってくれる
+        //HTMLを作ってレスポンスを返してくれる
+        return templateEngine.render("campaign",//全体の骨組みは決めておく
+                "campaign", campaign,//二つ目以降には必要なものを書いていく
+                "signatureCount", signatureCount,//骨組みの名前はtemplateのhtmlに書いておく
                 "signature", signature,
                 "message", message
         );
@@ -50,6 +53,8 @@ public class CampaignController {
      * @param flash flash scope session
      * @return HttpResponse
      */
+
+    //ルートで呼び出されるメソッド、関数の処理内容の定義
     public HttpResponse index(CampaignForm form, Flash flash) {
         if (form.hasErrors()) {
             return builder(HttpResponse.of("Invalid"))
@@ -57,6 +62,7 @@ public class CampaignController {
                     .build();
         }
 
+        //残りの処理はshowCampaignメソッドに任せるよって意味
         return showCampaign(form.getCampaignIdLong(),
                 new SignatureForm(),
                 (String) some(flash, Flash::getValue).orElse(null));
@@ -91,6 +97,10 @@ public class CampaignController {
      */
     public HttpResponse createForm() {
         return templateEngine.render("signature/new");
+    }
+
+    public HttpResponse createFormlist() {
+        return templateEngine.render("signature/list");
     }
 
     /**
