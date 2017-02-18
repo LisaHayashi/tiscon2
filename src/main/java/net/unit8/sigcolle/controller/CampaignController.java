@@ -11,6 +11,7 @@ import net.unit8.sigcolle.dao.CampaignDao;
 import net.unit8.sigcolle.dao.SignatureDao;
 import net.unit8.sigcolle.form.CampaignForm;
 import net.unit8.sigcolle.form.SignatureForm;
+import net.unit8.sigcolle.model.Campaign;
 import net.unit8.sigcolle.model.UserCampaign;
 import net.unit8.sigcolle.model.Signature;
 
@@ -91,6 +92,7 @@ public class CampaignController {
                 .build();
     }
 
+
     /**
      * 新規キャンペーン作成画面表示.
      * @return HttpResponse
@@ -107,8 +109,22 @@ public class CampaignController {
      * 新規キャンペーン作成処理.
      * @return HttpResponse
      */
-    public HttpResponse create() {
+    public HttpResponse create(CampaignForm form) {
         // TODO: create campaign
-        return builder(redirect("/", SEE_OTHER)).build();
+        // ***********************************************↓
+
+        Campaign campaign = builder(new Campaign())
+                .set(Campaign::setTitle, form.getTitle())
+                .set(Campaign::setStatement, form.getStatement())
+                .set(Campaign::setGoal, form.getGoal())
+                .build();
+        CampaignDao campaignDao = domaProvider.getDao(CampaignDao.class);
+        campaignDao.insert(campaign);
+
+        return builder(redirect("/campaign/", SEE_OTHER))
+                .set(HttpResponse::setFlash, new Flash("心機キャンペーンを登録しました"))
+                .build();
+
+        //***********************************************↑
     }
 }

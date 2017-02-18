@@ -69,6 +69,7 @@ public class RegisterController {
 
 
 
+
         Session session = new Session();
         User loginUser = userDao.selectByEmail(form.getEmail());
         session.put(
