@@ -17,21 +17,31 @@ public class CampaignForm extends FormBase {
     private String campaignId;
 
     //**************************************↓
-    @NotNull
+
+
     @Length(min = 1, max = 50)
     private String title;
 
-    @NotNull
-    @Length(min = 1, max = 50)
+
+    @Length(max = 5000)
     private String statement;
 
-    @NotNull
-    @Length(min = 1, max = 50)
-    private Long goal;
+    @DecimalMin("1")
+    @DecimalMax("9999")
+    private String goal;
+
+    @DecimalMin("1")
+    @DecimalMax("9999")
+    private String userId;
+
 
     //**************************************↑
 
     public Long getCampaignIdLong() {
         return Long.parseLong(campaignId);
     }
+    public Long getCreateUserIdLong() {
+        return Long.parseLong(userId);
+    }
+
 }

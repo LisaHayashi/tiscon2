@@ -1,3 +1,4 @@
+
 package net.unit8.sigcolle.controller;
 
 import javax.inject.Inject;
@@ -92,7 +93,6 @@ public class CampaignController {
                 .build();
     }
 
-
     /**
      * 新規キャンペーン作成画面表示.
      * @return HttpResponse
@@ -114,17 +114,19 @@ public class CampaignController {
         // ***********************************************↓
 
         Campaign campaign = builder(new Campaign())
+                .set(Campaign::setCampaignId, form.getCampaignId())
                 .set(Campaign::setTitle, form.getTitle())
                 .set(Campaign::setStatement, form.getStatement())
                 .set(Campaign::setGoal, form.getGoal())
+                .set(Campaign::setCreateUserId, form.getUserId())
                 .build();
         CampaignDao campaignDao = domaProvider.getDao(CampaignDao.class);
         campaignDao.insert(campaign);
 
         return builder(redirect("/campaign/", SEE_OTHER))
-                .set(HttpResponse::setFlash, new Flash("心機キャンペーンを登録しました"))
+                .set(HttpResponse::setFlash, new Flash("新規キャンペーンを登録しました"))
                 .build();
-
         //***********************************************↑
+
     }
 }

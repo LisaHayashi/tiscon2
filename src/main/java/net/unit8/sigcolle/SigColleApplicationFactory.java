@@ -67,17 +67,24 @@ public class SigColleApplicationFactory implements ApplicationFactory {
             //すべてのルートがここに示されている
             //（こういうリクエストがあったら）→（こういう処理を行うよ・こういう関数を実行するよ）っていう意味
             r.get("/").to(IndexController.class, "index");
+
             r.get("/campaign/:campaignId").to(CampaignController.class, "index");
             r.post("/campaign/:campaignId").to(CampaignController.class, "sign");
+
             r.get("/campaign/:campaignId/signatures").to(SignatureController.class, "list");
+
             r.get("/register").to(RegisterController.class, "index");
             r.post("/register").to(RegisterController.class, "register");
+
             r.get("/login").to(LoginController.class, "index");
             r.post("/login").to(LoginController.class, "login");
+
             r.get("/logout").to(LoginController.class, "logout");
+
             // authenticated(see middleware configuration)
             r.get("/auth/campaign").to(CampaignController.class, "createForm");
             r.post("/auth/campaign").to(CampaignController.class, "create");
+
             r.get("/campaign/:campaignId/signatures/new").to(CampaignController.class, "createForm");
 
             //***********************************↓

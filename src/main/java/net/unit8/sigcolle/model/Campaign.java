@@ -26,7 +26,7 @@ public class Campaign implements Serializable {
     // Markdown description
     private String statement;
 
-    private Long goal;
+    private String goal;
 
     private Long createUserId;
 }
