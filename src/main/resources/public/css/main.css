@@ -40,18 +40,12 @@ ul.label {
   list-style-type: none;
 }
 
-#form3 label{
-color:#556b2f;
-font-size:18px;
-}
-
 #form3 input[type=text]:focus,#form3 textarea:focus{
 outline: none;
 background:#ffdab9;
 }
 
 #form3 input[type=text],#form3 textarea{
-background:#f5f5dc;
 border:none;
 padding:5px 2px;
 border:solid 1px #c0c0c0;
