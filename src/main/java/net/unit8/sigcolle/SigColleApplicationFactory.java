@@ -90,7 +90,8 @@ public class SigColleApplicationFactory implements ApplicationFactory {
             //***********************************↓
             r.get("/campaign/:campaignId").to(CampaignController.class, "create");
             r.get("/signature/new").to(CampaignController.class, "createForm");
-            r.get("/signature/list").to(CampaignController.class, "createFormlist");
+            r.get("/signature/list").to(CampaignController.class, "createFormList");
+            r.get("/signature/list").to(CampaignController.class, "createList");
 
 
             //***********************************↑

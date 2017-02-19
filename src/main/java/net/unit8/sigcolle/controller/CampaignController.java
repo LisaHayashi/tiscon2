@@ -99,8 +99,15 @@ public class CampaignController {
      * 新規キャンペーン作成画面表示.
      * @return HttpResponse
      */
-    public HttpResponse createForm() {
-        return templateEngine.render("signature/new");
+    public HttpResponse createForm(Session session) {
+        LoginUserPrincipal ccc = (LoginUserPrincipal) session.get("principal");
+        Long ddd = ccc.getUserId();
+
+        if(ddd == null){
+            return templateEngine.render("/login");
+        }
+
+        else return templateEngine.render("signature/new");
     }
 
     public HttpResponse createFormlist() {
@@ -133,5 +140,18 @@ public class CampaignController {
                 .build();
         //***********************************************↑
 
+    }
+
+    public HttpResponse createList(SignatureForm form) {
+        Signature signature = builder(new Signature())
+                .set(Signature::setName, form.getName())
+                .set(Signature::setSignatureComment, form.getSignatureComment())
+                .build();
+        SignatureDao signatureDao = domaProvider.getDao(SignatureDao.class);
+        signatureDao.insert(signature);
+
+        return builder(redirect("/signature/list", SEE_OTHER))
+                .set(HttpResponse::setFlash, new Flash("aaaaaa"))
+                .build();
     }
 }
