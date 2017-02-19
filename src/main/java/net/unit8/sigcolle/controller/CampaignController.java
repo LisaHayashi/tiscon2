@@ -1,4 +1,3 @@
-
 package net.unit8.sigcolle.controller;
 
 import javax.inject.Inject;
@@ -7,10 +6,13 @@ import javax.transaction.Transactional;
 import enkan.component.doma2.DomaProvider;
 import enkan.data.Flash;
 import enkan.data.HttpResponse;
+import enkan.data.Session;
 import kotowari.component.TemplateEngine;
+import net.unit8.sigcolle.auth.LoginUserPrincipal;
 import net.unit8.sigcolle.dao.CampaignDao;
 import net.unit8.sigcolle.dao.SignatureDao;
 import net.unit8.sigcolle.form.CampaignForm;
+import net.unit8.sigcolle.form.NewForm;
 import net.unit8.sigcolle.form.SignatureForm;
 import net.unit8.sigcolle.model.Campaign;
 import net.unit8.sigcolle.model.UserCampaign;
@@ -109,21 +111,24 @@ public class CampaignController {
      * 新規キャンペーン作成処理.
      * @return HttpResponse
      */
-    public HttpResponse create(CampaignForm form) {
+    public HttpResponse create(NewForm form, Session session ) {
         // TODO: create campaign
         // ***********************************************↓
 
+
+        LoginUserPrincipal bbb = (LoginUserPrincipal) session.get("principal");
+        Long aaa = bbb.getUserId();
+
         Campaign campaign = builder(new Campaign())
-                .set(Campaign::setCampaignId, form.getCampaignId())
                 .set(Campaign::setTitle, form.getTitle())
                 .set(Campaign::setStatement, form.getStatement())
                 .set(Campaign::setGoal, form.getGoal())
-                .set(Campaign::setCreateUserId, form.getUserId())
+                .set(Campaign::setCreateUserId, aaa)
                 .build();
         CampaignDao campaignDao = domaProvider.getDao(CampaignDao.class);
         campaignDao.insert(campaign);
 
-        return builder(redirect("/campaign/", SEE_OTHER))
+        return builder(redirect("/", SEE_OTHER))
                 .set(HttpResponse::setFlash, new Flash("新規キャンペーンを登録しました"))
                 .build();
         //***********************************************↑

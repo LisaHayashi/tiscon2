@@ -28,5 +28,4 @@ public interface CampaignDao {
     @Insert
     int insert(Campaign campaign);
 
-
 }
