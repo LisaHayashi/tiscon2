@@ -15,6 +15,9 @@ public class NewForm extends FormBase {
 
     //**************************************↓
 
+    @DecimalMin("1")
+    @DecimalMax("9999")
+    private String campaignId;
 
     @Length(min = 1, max = 50)
     private String title;
@@ -29,12 +32,15 @@ public class NewForm extends FormBase {
 
 
     //**************************************↑
-/*
+
     public Long getCampaignIdLong() {
         return Long.parseLong(campaignId);
     }
+
+    /*
     public Long getCreateUserIdLong() {
         return Long.parseLong(userId);
     }
-*/
+    */
+
 }

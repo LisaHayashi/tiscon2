@@ -23,7 +23,7 @@
                                   th:classappend="${user.hasErrors()} ? 'error'">
                                 <div class="field" th:classappend="${user.hasErrors('lastName')} ? 'error'">
                                     <input type="text" name="lastName" placeholder="姓"
-                                           th:value="${user.lastName != null} ? ${user.lastName}" />
+                                           th:value="${user.lastName != null} ? ${user.lastName}"2 />
                                     <ul class="ui pointing red basic label" th:if="${user.hasErrors('lastName')}">
                                         <li th:each="message : ${user.getErrors('lastName')}" th:text="${message}"></li>
                                     </ul>

@@ -90,8 +90,11 @@ public class CampaignController {
         SignatureDao signatureDao = domaProvider.getDao(SignatureDao.class);
         signatureDao.insert(signature);
 
+        System.out.println(form.getCampaignId());
+
+
         return builder(redirect("/campaign/" + form.getCampaignId(), SEE_OTHER))
-                .set(HttpResponse::setFlash, new Flash("ご賛同ありがとうございました！"))
+                .set(HttpResponse::setFlash, new Flash("ご賛同ありがとうございました！" + form.getCampaignId()))
                 .build();
     }
 
@@ -118,7 +121,7 @@ public class CampaignController {
      * 新規キャンペーン作成処理.
      * @return HttpResponse
      */
-    public HttpResponse create(NewForm form, Session session ) {
+    public HttpResponse create(NewForm form, Session session) {
         // TODO: create campaign
         // ***********************************************↓
 
@@ -135,7 +138,8 @@ public class CampaignController {
         CampaignDao campaignDao = domaProvider.getDao(CampaignDao.class);
         campaignDao.insert(campaign);
 
-        return builder(redirect("/", SEE_OTHER))
+
+        return builder(redirect("/campaign/" + campaign.getCampaignId() , SEE_OTHER))
                 .set(HttpResponse::setFlash, new Flash("新規キャンペーンを登録しました"))
                 .build();
         //***********************************************↑
